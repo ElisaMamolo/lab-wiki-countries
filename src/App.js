@@ -6,16 +6,30 @@ import { Routes, Route } from 'react-router-dom';
 import CountryDetails from './components/CountryDetails';
 import countriesData from './countries.json';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
-  const [countries, setCountries] = useState(countriesData);
+  //const [countries, setCountries] = useState(countriesData);
+  const [countries, setCountries] = useState([]);
+  const api = 'https://ih-countries-api.herokuapp.com/countries';
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(api);
+      setCountries(response.data);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="App">
       <Navbar />
+      <CountriesList countryList={countries} />
       <Routes>
-        <Route path="/" element={<CountriesList countryList={countries} />} />
+        {/* <Route path="/" element={<CountriesList countryList={countries} />} /> */}
         <Route
-          path="/countries/:id"
+          path="/:id"
           element={<CountryDetails countryDetails={countries} />}
         />
       </Routes>

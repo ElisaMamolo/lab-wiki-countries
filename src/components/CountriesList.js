@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'; // <== IMPORT
+import CountryDetails from './CountryDetails';
 
 function CountriesList({ countryList }) {
   return (
@@ -9,13 +10,15 @@ function CountriesList({ countryList }) {
             {countryList.map((item) => {
               return (
                 <div key={Math.random()}>
-                  <Link to={`/countries/${item.alpha3Code}`}>
+                  <Link to={`/${item.alpha3Code}`}>
                     <p>{item.name.common}</p>
                   </Link>
                 </div>
               );
             })}
           </div>
+
+          {/* <CountryDetails /> */}
         </div>
       </div>
     </div>
